@@ -19,8 +19,16 @@ RUN tar xvzf dexter.tar.gz
 RUN mv /dexter2/* ./
 
 RUN pip3 install requests==2.24.0
+RUN pip3 install rdflib==5.0.0
+RUN pip3 install pyspark==3.0.1
+
+RUN pip3 install gdown
+RUN gdown https://drive.google.com/uc?id=1HhLIUnWIwyHHkorV4wZLeU-sv3kT-zk3
 
 EXPOSE 8080
 
-CMD java -Xmx3000m -jar dexter-2.1.0.jar &
+RUN git clone https://github.com/gaoyuanliang/jessica_entity_linking_docker.git
+RUN mv jessica_entity_linking_docker/* ./
+
+CMD bash
 ###########Dockerfile############
