@@ -2,11 +2,11 @@
 
 
 ```bash
-docker build -t yan_entity_linking:1.0.1 .
+docker build -t jessica_entity_linking:1.0.1 .
 
 docker run -it \
 -p 8080:8080 \
-yan_entity_linking:1.0.1 \
+jessica_entity_linking:1.0.1 \
 bash
 
 java -Xmx3000m -jar dexter-2.1.0.jar &
