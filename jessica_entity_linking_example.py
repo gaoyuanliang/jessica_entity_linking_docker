@@ -2,7 +2,7 @@
 
 from jessica_entity_linking import entity_linking
 
-entities = entity_linking("Donald J. Trump is fucking the United States.")
+entities = entity_linking("I live at Abu Dhabi but study in Heriot-Watt University Dubai.")
 
 for e in entities:
 	print(e)
