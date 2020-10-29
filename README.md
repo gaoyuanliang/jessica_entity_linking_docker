@@ -9,3 +9,18 @@ docker run -it \
 yan_entity_linking:1.0.1 \
 bash
 ```
+
+
+```python
+from jessica_entity_linking import entity_linking
+
+entities = entity_linking("I live at Abu Dhabi but study in Heriot-Watt University Dubai.")
+
+for e in entities:
+	print(e)
+
+'''
+{'entity_wikipage_id': '3956428', 'sentence': 'I live at Abu Dhabi but study in Heriot-Watt University Dubai.', 'mention': 'heriot watt university dubai'}
+{'entity_wikipage_id': '18950756', 'sentence': 'I live at Abu Dhabi but study in Heriot-Watt University Dubai.', 'mention': 'abu dhabi'}
+''' 
+```
