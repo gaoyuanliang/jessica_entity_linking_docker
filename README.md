@@ -8,6 +8,9 @@ docker run -it \
 -p 8080:8080 \
 yan_entity_linking:1.0.1 \
 bash
+
+java -Xmx3000m -jar dexter-2.1.0.jar &
+
 ```
 
 
