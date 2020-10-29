@@ -24,3 +24,5 @@ for e in entities:
 {'entity_wikipage_id': '18950756', 'sentence': 'I live at Abu Dhabi but study in Heriot-Watt University Dubai.', 'mention': 'abu dhabi'}
 ''' 
 ```
+
+<http://dbpedia.org/resource/Heriot-Watt_University_Dubai> <http://dbpedia.org/ontology/wikiPageID> "3956428"^^<http://www.w3.org/2001/XMLSchema#integer> .
