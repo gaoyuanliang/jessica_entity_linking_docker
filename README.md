@@ -23,9 +23,8 @@ for e in entities:
 	print(e)
 
 '''
-{'entity_wikipage_id': '3956428', 'sentence': 'I live at Abu Dhabi but study in Heriot-Watt University Dubai.', 'mention': 'heriot watt university dubai'}
-{'entity_wikipage_id': '18950756', 'sentence': 'I live at Abu Dhabi but study in Heriot-Watt University Dubai.', 'mention': 'abu dhabi'}
-''' 
+{'sentence': 'I live at Abu Dhabi but study in Heriot-Watt University Dubai.', 'entity_wikipage_id': '3956428', 'mention': 'heriot watt university dubai', 'entity_dbpedia_id': None}
+{'sentence': 'I live at Abu Dhabi but study in Heriot-Watt University Dubai.', 'entity_wikipage_id': '18950756', 'mention': 'abu dhabi', 'entity_dbpedia_id': 'http://dbpedia.org/resource/Abu_Dhabi'}
 ```
 
 <http://dbpedia.org/resource/Heriot-Watt_University_Dubai> <http://dbpedia.org/ontology/wikiPageID> "3956428"^^<http://www.w3.org/2001/XMLSchema#integer> .
