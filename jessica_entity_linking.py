@@ -9,22 +9,27 @@ os.system(u"""
 	""")
 
 '''
-wikipage_id_to_dbpedia_id("4531823")
-
 15,797,814 page_ids_en.ttl
-'''
-
 
 os.popen(u"""
 		grep  "<http://dbpedia.org/ontology/wikiPageID> \\"%s\\"^^<" dbpedia_page_type.ttl 
 		"""%("4531823")).read()
+'''
 
-def wikipage_id_to_dppedia_id_type(input):
+
+'''
+dbpedia_entity_file_path = 'dbpedia_page_type.ttl'
+dbpedia_entity_file_path = 'dbpedia_page_type_small.ttl'
+'''
+def wikipage_id_to_dppedia_id_type(input,
+	dbpedia_entity_file_path = 'dbpedia_page_type.ttl'):
 	output = {"dbpedia_type":None, "dbpedia_id":None}
+	if dbpedia_entity_file_path is None:
+		return output
 	try:
 		line = os.popen(u"""
-		grep  "<http://dbpedia.org/ontology/wikiPageID> \\"%s\\"^^<" dbpedia_page_type.ttl 
-		"""%(input)).read()
+		grep  "<http://dbpedia.org/ontology/wikiPageID> \\"%s\\"^^<" %s 
+		"""%(input, dbpedia_entity_file_path)).read()
 	except:
 		return output
 	try:
@@ -43,9 +48,11 @@ def wikipage_id_to_dppedia_id_type(input):
 
 '''
 wikipage_id_to_dppedia_id_type("29465759")
+wikipage_id_to_dppedia_id_type("29465759", None)
 '''
 
-def entity_linking(text):
+def entity_linking(text, 
+	dbpedia_entity_file_path = None):
 	output = []
 	try:
 		r = requests.post("http://localhost:8080/dexter-webapp/api/rest/annotate", 
@@ -59,7 +66,7 @@ def entity_linking(text):
 		entity_dbpedia_id_lookup = {}
 		entity_dbpedia_type_lookup = {}
 		for e in entity_wikipage_ids:
-			dbpedia = wikipage_id_to_dppedia_id_type(e)
+			dbpedia = wikipage_id_to_dppedia_id_type(e, dbpedia_entity_file_path)
 			entity_dbpedia_id_lookup[e] = dbpedia['dbpedia_id']
 			entity_dbpedia_type_lookup[e] = dbpedia['dbpedia_type']
 		for s in entities:
@@ -76,10 +83,18 @@ def entity_linking(text):
 '''
 from jessica_entity_linking import entity_linking
 
-for e in entity_linking("I study at Heriot-Watt University Dubai, but I live at Abu Dhabi. I want to work at Apple. I was born in China, 1997"):
+text = "I study at Heriot-Watt University Dubai, but I live at Abu Dhabi. I want to work at Apple. I was born in China, 1997"
+
+for e in entity_linking(text,"dbpedia_page_type.ttl"):
 	print(e)
 
-for e in entity_linking("I live at the Al Reem Island of Abu Dhabi and work in the Aldar headquarters building."):
+for e in entity_linking(text,"dbpedia_page_type_small.ttl"):
+	print(e)
+
+for e in entity_linking(text):
+	print(e)
+
+for e in entity_linking("Barack Obama is from the United States of America.", "dbpedia_page_type_small.ttl"):
 	print(e)
 '''
 ##############jessica_entity_linking.py########
