@@ -10,8 +10,7 @@ jessica_entity_linking:1.0.1 \
 bash
 ```
 
-visit the rest api at 
-
+visit the rest api at http://localhost:8080/dexter-webapp/dev/#!/rest/annotateGet
 
 ```python
 from jessica_entity_linking import entity_linking
