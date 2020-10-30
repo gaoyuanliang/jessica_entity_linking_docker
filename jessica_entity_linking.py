@@ -1,5 +1,6 @@
 ##############jessica_entity_linking.py########
 import os
+import re
 import requests
 
 print('loading the entity linking models')
@@ -12,6 +13,11 @@ wikipage_id_to_dbpedia_id("4531823")
 
 15,797,814 page_ids_en.ttl
 '''
+
+
+os.popen(u"""
+		grep  "<http://dbpedia.org/ontology/wikiPageID> \\"%s\\"^^<" dbpedia_page_type.ttl 
+		"""%("4531823")).read()
 
 def wikipage_id_to_dppedia_id_type(input):
 	output = {"dbpedia_type":None, "dbpedia_id":None}
@@ -68,6 +74,8 @@ def entity_linking(text):
 		return output
 
 '''
+from jessica_entity_linking import entity_linking
+
 for e in entity_linking("I study at Heriot-Watt University Dubai, but I live at Abu Dhabi. I want to work at Apple. I was born in China, 1997"):
 	print(e)
 
