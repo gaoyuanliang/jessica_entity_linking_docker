@@ -118,4 +118,32 @@ cat dbpedia_page_type1/* > dbpedia_page_type.ttl
 15797814 dbpedia_page_type.ttl
 '''
 
+'''
+2274166
+3660637
+4780541
+100000
+'''
+
+sqlContext.sql(u"""
+	SELECT 
+	CASE 
+		WHEN type_relation IS NOT NULL AND type_id IS NOT NULL 
+		THEN 
+		CONCAT(entity_id, ' ', 
+		wikipage_relation, ' ', wikipage_id, ' ; ',
+		type_relation, ' ', type_id, ' . ')
+		ELSE 
+		CONCAT(entity_id, ' ', 
+		wikipage_relation, ' ', wikipage_id, ' . ')
+	END
+	FROM dbpedia_page_type
+	WHERE outdegree_rank <= 4780541
+	""").write.mode("Overwrite").format("text").save("/jessica/dbpedia_page_type_small")
+
+'''
+cat dbpedia_page_type_small/* > dbpedia_page_type_small.ttl
+4780546 dbpedia_page_type_small.ttl
+'''
+
 ####################################
