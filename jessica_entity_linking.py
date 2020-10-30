@@ -49,14 +49,19 @@ def entity_linking(text):
 			})
 		#print(r.json())
 		entities = r.json()['spots']
+		entity_wikipage_ids = list(set([str(s['entity']) for s in entities]))
+		entity_dbpedia_id_lookup = {}
+		entity_dbpedia_type_lookup = {}
+		for e in entity_wikipage_ids:
+			dbpedia = wikipage_id_to_dppedia_id_type(e)
+			entity_dbpedia_id_lookup[e] = dbpedia['dbpedia_id']
+			entity_dbpedia_type_lookup[e] = dbpedia['dbpedia_type']
 		for s in entities:
-			dbpedia = wikipage_id_to_dppedia_id_type(str(s['entity']))
-			dbpedia_type = dbpedia_id_to_type(dbpedia_id)
 			output.append({'mention':s['mention'],
 			'entity_wikipage_id':str(s['entity']),
 			'sentence':text,
-			'entity_dbpedia_id':dbpedia['dbpedia_id'],
-			'entity_dbpedia_type':dbpedia['dbpedia_type'],
+			'entity_dbpedia_id':entity_dbpedia_id_lookup[str(s['entity'])],
+			'entity_dbpedia_type':entity_dbpedia_type_lookup[str(s['entity'])],
 			})
 		return output
 	except:
