@@ -1,28 +1,42 @@
 ##############jessica_entity_linking.py########
-import rdflib
+import os
 import requests
 
-g = rdflib.Graph()
-g.parse("page_ids_en_small.ttl", format='ttl')
-
-def wikipage_id_to_dbpedia_id(entity_id):
-	try:
-		dbpedia_entity_id = [t[0].toPython() for t in 
-			g.query(u"""
-			SELECT ?dbpedia_entity_id
-			WHERE {
-			?dbpedia_entity_id 
-			<http://dbpedia.org/ontology/wikiPageID>
-			"%s"^^<http://www.w3.org/2001/XMLSchema#integer> .
-			} LIMIT 1
-			"""%(entity_id))]
-		dbpedia_entity_id = dbpedia_entity_id[0]
-		return dbpedia_entity_id
-	except:
-		return None
+print('loading the entity linking models')
+os.system(u"""
+	java -Xmx3000m -jar dexter-2.1.0.jar &
+	""")
 
 '''
 wikipage_id_to_dbpedia_id("4531823")
+
+15,797,814 page_ids_en.ttl
+'''
+
+def wikipage_id_to_dppedia_id_type(input):
+	output = {"dbpedia_type":None, "dbpedia_id":None}
+	try:
+		line = os.popen(u"""
+		grep  "<http://dbpedia.org/ontology/wikiPageID> \\"%s\\"^^<" dbpedia_page_type.ttl 
+		"""%(input)).read()
+	except:
+		return output
+	try:
+		output["dbpedia_type"] = re.search(
+			r'type\> \<http\:\/\/dbpedia\.org\/ontology\/(?P<dbpedia_type>[^\<\>]+)\> ', 
+			line).group('dbpedia_type')
+	except:
+		pass
+	try:
+		output["dbpedia_id"] = re.search(
+			r'^\<(?P<dbpedia_id>[^\<\>]+)\> ', 
+			line).group('dbpedia_id')
+	except:
+		pass
+	return output
+
+'''
+wikipage_id_to_dppedia_id_type("29465759")
 '''
 
 def entity_linking(text):
@@ -36,16 +50,23 @@ def entity_linking(text):
 		#print(r.json())
 		entities = r.json()['spots']
 		for s in entities:
+			dbpedia = wikipage_id_to_dppedia_id_type(str(s['entity']))
+			dbpedia_type = dbpedia_id_to_type(dbpedia_id)
 			output.append({'mention':s['mention'],
 			'entity_wikipage_id':str(s['entity']),
 			'sentence':text,
-			'entity_dbpedia_id':wikipage_id_to_dbpedia_id(str(s['entity'])),
+			'entity_dbpedia_id':dbpedia['dbpedia_id'],
+			'entity_dbpedia_type':dbpedia['dbpedia_type'],
 			})
 		return output
 	except:
 		return output
 
 '''
-entity_linking("I will go to Dubai of the United Arab Emirates.")
+for e in entity_linking("I study at Heriot-Watt University Dubai, but I live at Abu Dhabi. I want to work at Apple. I was born in China, 1997"):
+	print(e)
+
+for e in entity_linking("I live at the Al Reem Island of Abu Dhabi and work in the Aldar headquarters building."):
+	print(e)
 '''
 ##############jessica_entity_linking.py########
