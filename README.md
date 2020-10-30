@@ -10,6 +10,8 @@ jessica_entity_linking:1.0.1 \
 bash
 ```
 
+visit the rest api at 
+
 
 ```python
 from jessica_entity_linking import entity_linking
@@ -24,5 +26,3 @@ for e in entity_linking("I study at Heriot-Watt University Dubai, but I live at 
 {'entity_dbpedia_type': 'Company', 'entity_dbpedia_id': 'http://dbpedia.org/resource/Apple_Inc.', 'sentence': 'I study at Heriot-Watt University Dubai, but I live at Abu Dhabi. I want to work at Apple. I was born in China, 1997', 'mention': 'apple', 'entity_wikipage_id': '856'}
 '''
 ```
-
-<http://dbpedia.org/resource/Heriot-Watt_University_Dubai> <http://dbpedia.org/ontology/wikiPageID> "3956428"^^<http://www.w3.org/2001/XMLSchema#integer> .
