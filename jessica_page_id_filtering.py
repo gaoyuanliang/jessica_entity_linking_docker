@@ -138,12 +138,12 @@ sqlContext.sql(u"""
 		wikipage_relation, ' ', wikipage_id, ' . ')
 	END
 	FROM dbpedia_page_type
-	WHERE outdegree_rank <= 4780541
+	WHERE outdegree_rank <= 2274166
 	""").write.mode("Overwrite").format("text").save("/jessica/dbpedia_page_type_small")
 
 '''
 cat dbpedia_page_type_small/* > dbpedia_page_type_small.ttl
-4780546 dbpedia_page_type_small.ttl
+2274169 dbpedia_page_type_small.ttl
 '''
 
-####################################
+#######jessica_page_id_filtering.py#######
