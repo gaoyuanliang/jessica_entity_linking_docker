@@ -8,7 +8,7 @@ print('loading the entity linking models')
 os.system(u"""
 	java -Xmx3000m -jar dexter-2.1.0.jar &
 	""")
-time.sleep(10)
+time.sleep(30)
 
 '''
 15,797,814 page_ids_en.ttl
