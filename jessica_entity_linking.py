@@ -94,7 +94,11 @@ for e in entity_linking(text,"dbpedia_page_type_small.ttl"):
 for e in entity_linking(text):
 	print(e)
 
-for e in entity_linking("Barack Obama is from the United States of America.", "dbpedia_page_type_small.ttl"):
+
+for e in entity_linking("I live at the Al Reem Island of Abu Dhabi and work in the Aldar headquarters building.", None):
+	print(e)
+
+for e in entity_linking("Trump is the president of the USA.", "dbpedia_page_type_small.ttl"):
 	print(e)
 '''
 ##############jessica_entity_linking.py########
