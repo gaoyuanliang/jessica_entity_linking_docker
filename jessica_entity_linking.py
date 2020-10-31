@@ -1,12 +1,14 @@
 ##############jessica_entity_linking.py########
 import os
 import re
+import time
 import requests
 
 print('loading the entity linking models')
 os.system(u"""
 	java -Xmx3000m -jar dexter-2.1.0.jar &
 	""")
+time.sleep(10)
 
 '''
 15,797,814 page_ids_en.ttl
